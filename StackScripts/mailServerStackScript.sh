@@ -12,7 +12,7 @@
 IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
 
 # This updates the packages on the system from the distribution repositories.
-apt-get update && apt-get upgrade -y
+DEBIAN_FRONTEND=noninteractive apt-get update -y -q  && DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -q
 
 # This section sets the hostname.
 echo $HOSTNAME > /etc/hostname
