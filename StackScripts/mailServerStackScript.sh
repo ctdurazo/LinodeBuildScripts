@@ -47,7 +47,7 @@ wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/master/mailServerCon
 
 # get opendkim config files
 mv /etc/opendkim.conf /etc/opendkim.conf.bak
-mv /etc/default/opendkim
+mv /etc/default/opendkim /etc/default/opendkim.bak
 wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/master/mailServerConfs/opendkim/opendkim.conf -O /etc/opendkim.conf #TODO
 wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/master/mailServerConfs/opendkim/opendkim -O /etc/default/opendkim #TODO
 
