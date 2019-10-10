@@ -58,7 +58,7 @@ tls_random_source = dev:/dev/urandom
 #End new
 
 smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
-myhostname = mail.upsellitemail.com
+myhostname = mail.christiandurazo.dev
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
 myorigin = /etc/mailname
