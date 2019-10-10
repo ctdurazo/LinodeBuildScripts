@@ -17,7 +17,7 @@ DEBIAN_FRONTEND=noninteractive apt-get update -y -q  && DEBIAN_FRONTEND=noninter
 # This section sets the hostname.
 echo $HOSTNAME > /etc/hostname
 hostname -F /etc/hostname
-hostname -F /etc/mailname
+echo $FQDN > /etc/mailname
 
 # This section sets the Fully Qualified Domain Name (FQDN) in the hosts file.
 echo $IPADDR $FQDN $HOSTNAME >> /etc/hosts
@@ -39,7 +39,7 @@ mv /etc/postfix/master.cf /etc/postfix/master.cf.bak
 mv /etc/postfix/main.cf /etc/postfix/main.cf.bak
 wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/master/mailServerConfs/postfix/master.cf -O /etc/postfix/master.cf #TODO
 wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/master/mailServerConfs/postfix/main.cf -O /etc/postfix/main.cf #TODO
-sed -i "s/christiandurazo.dev/$HOSTNAME/g" /etc/postfix/main.cf
+sed -i "s/example.com/$FQDN/g" /etc/postfix/main.cf
 
 # get dovecot config files
 mv /etc/dovecot/dovecot.conf /etc/dovecot/dovecot.conf.bak
@@ -73,8 +73,8 @@ mkdir /var/log/dkim-filter
 touch /var/log/dkim-filter/dkim-stats
 chown opendkim:opendkim /var/log/dkim-filter/
 chown opendkim:opendkim /var/log/dkim-filter/dkim-stats
-echo $HOSTNAME $HOSTNAME:mail:/etc/mail/dkim.key >> /etc/opendkim/KeyTable
-echo \* $HOSTNAME >> /etc/opendkim/SigningTable
+echo $FQDN $FQDN:mail:/etc/mail/dkim.key >> /etc/opendkim/KeyTable
+echo \* $FQDN >> /etc/opendkim/SigningTable
 echo 127.0.0.1 >> /etc/opendkim/TrustedHosts
 mkdir /var/spool/postfix/opendkim
 chown opendkim:postfix /var/spool/postfix/opendkim
