@@ -68,8 +68,9 @@ echo "root: $USERNAME" >> /etc/aliases
 
 # set permissions and make directories
 chmod u=rw,go=r /etc/opendkim.conf
-mkdir /etc/opendkim
-mkdir /etc/mail
+#mkdir /etc/opendkim
+#mkdir /etc/mail
+mkdir /etc/{opendkim,mail}
 chown -R opendkim:opendkim /etc/opendkim
 mkdir /var/log/dkim-filter
 touch /var/log/dkim-filter/dkim-stats
