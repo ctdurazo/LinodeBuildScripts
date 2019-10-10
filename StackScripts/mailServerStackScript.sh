@@ -9,7 +9,7 @@
 #
 
 # This sets the variable $IPADDR to the IP address the new Linode receives.
-IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }')
+IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
 
 # This updates the packages on the system from the distribution repositories.
 apt-get update && apt-get upgrade -y
