@@ -26,13 +26,12 @@ adduser --quiet --disabled-password --shell /bin/bash --home /home/$USERNAME $US
 echo "$USERNAME:$PASSWORD" | chpasswd
 
 # create ssl cert
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/ssl-mail.key -out /etc/ssl/certs/ssl-mail.pem
+openssl req -x509 -nodes -days 365 -subj "/C=US/ST=California/L=Los Angeles/O=./CN=$FQDN" -newkey rsa:2048 -keyout /etc/ssl/private/ssl-mail.key -out /etc/ssl/certs/ssl-mail.pem
 
 # install packages
 debconf-set-selections <<< "postfix postfix/mailname string $HOSTNAME"
 debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
-apt-get install -y postfix
-apt-get install postfix-policyd-spf-python postfix-pcre dovecot-core dovecot-imapd dovecot-pop3d dovecot-lmtpd opendkim opendkim-tools
+apt-get install -y postfix postfix-policyd-spf-python postfix-pcre dovecot-core dovecot-imapd dovecot-pop3d dovecot-lmtpd opendkim opendkim-tools
 
 # get postfix config files
 mv /etc/postfix/master.cf /etc/postfix/master.cf.bak
