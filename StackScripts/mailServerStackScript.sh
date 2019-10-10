@@ -22,7 +22,6 @@ hostname -F /etc/hostname
 echo $IPADDR $FQDN $HOSTNAME >> /etc/hosts
 
 # add user with password
-adduser $USERNAME
 adduser --quiet --disabled-password --shell /bin/bash --home /home/$USERNAME $USERNAME
 echo "$USERNAME:$PASSWORD" | chpasswd
 
