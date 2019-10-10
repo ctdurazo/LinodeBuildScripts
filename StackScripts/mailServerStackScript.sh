@@ -38,19 +38,19 @@ apt-get install postfix-policyd-spf-python postfix-pcre dovecot-core dovecot-ima
 # get postfix config files
 mv /etc/postfix/master.cf /etc/postfix/master.cf.bak
 mv /etc/postfix/main.cf /etc/postfix/main.cf.bak
-wget https://github.com/ctdurazo/LinodeStuff/blob/master/mailServerConfs/postfix/master.cf -O /etc/postfix/master.cf #TODO
-wget https://github.com/ctdurazo/LinodeStuff/blob/master/mailServerConfs/postfix/main.cf -O /etc/postfix/main.cf #TODO
+wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/blob/master/mailServerConfs/postfix/master.cf -O /etc/postfix/master.cf #TODO
+wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/blob/master/mailServerConfs/postfix/main.cf -O /etc/postfix/main.cf #TODO
 sed -i "s/christiandurazo.dev/$HOSTNAME/g" /etc/postfix/main.cf
 
 # get dovecot config files
 mv /etc/dovecot/dovecot.conf /etc/dovecot/dovecot.conf.bak
-wget https://github.com/ctdurazo/LinodeStuff/blob/master/mailServerConfs/dovecot/dovecot.conf -O /etc/dovecot/dovecot.conf #TODO
+wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/blob/master/mailServerConfs/dovecot/dovecot.conf -O /etc/dovecot/dovecot.conf #TODO
 
 # get opendkim config files
 mv /etc/opendkim.conf /etc/opendkim.conf.bak
 mv /etc/default/opendkim
-wget https://github.com/ctdurazo/LinodeStuff/blob/master/mailServerConfs/opendkim/opendkim.conf -O /etc/opendkim.conf #TODO
-wget https://github.com/ctdurazo/LinodeStuff/blob/master/mailServerConfs/opendkim/opendkim -O /etc/default/opendkim #TODO
+wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/blob/master/mailServerConfs/opendkim/opendkim.conf -O /etc/opendkim.conf #TODO
+wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/blob/master/mailServerConfs/opendkim/opendkim -O /etc/default/opendkim #TODO
 
 # add aliases to /etc/aliases
 echo "mailer-daemon: postmaster" >> /etc/aliases
