@@ -17,6 +17,7 @@ DEBIAN_FRONTEND=noninteractive apt-get update -y -q  && DEBIAN_FRONTEND=noninter
 # This section sets the hostname.
 echo $HOSTNAME > /etc/hostname
 hostname -F /etc/hostname
+hostname -F /etc/mailname
 
 # This section sets the Fully Qualified Domain Name (FQDN) in the hosts file.
 echo $IPADDR $FQDN $HOSTNAME >> /etc/hosts
@@ -36,19 +37,19 @@ apt-get install -y postfix postfix-policyd-spf-python postfix-pcre dovecot-core 
 # get postfix config files
 mv /etc/postfix/master.cf /etc/postfix/master.cf.bak
 mv /etc/postfix/main.cf /etc/postfix/main.cf.bak
-wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/blob/master/mailServerConfs/postfix/master.cf -O /etc/postfix/master.cf #TODO
-wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/blob/master/mailServerConfs/postfix/main.cf -O /etc/postfix/main.cf #TODO
+wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/master/mailServerConfs/postfix/master.cf -O /etc/postfix/master.cf #TODO
+wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/master/mailServerConfs/postfix/main.cf -O /etc/postfix/main.cf #TODO
 sed -i "s/christiandurazo.dev/$HOSTNAME/g" /etc/postfix/main.cf
 
 # get dovecot config files
 mv /etc/dovecot/dovecot.conf /etc/dovecot/dovecot.conf.bak
-wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/blob/master/mailServerConfs/dovecot/dovecot.conf -O /etc/dovecot/dovecot.conf #TODO
+wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/master/mailServerConfs/dovecot/dovecot.conf -O /etc/dovecot/dovecot.conf #TODO
 
 # get opendkim config files
 mv /etc/opendkim.conf /etc/opendkim.conf.bak
 mv /etc/default/opendkim
-wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/blob/master/mailServerConfs/opendkim/opendkim.conf -O /etc/opendkim.conf #TODO
-wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/blob/master/mailServerConfs/opendkim/opendkim -O /etc/default/opendkim #TODO
+wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/master/mailServerConfs/opendkim/opendkim.conf -O /etc/opendkim.conf #TODO
+wget https://raw.githubusercontent.com/ctdurazo/LinodeStuff/master/mailServerConfs/opendkim/opendkim -O /etc/default/opendkim #TODO
 
 # add aliases to /etc/aliases
 echo "mailer-daemon: postmaster" >> /etc/aliases
@@ -66,8 +67,6 @@ echo "root: $USERNAME" >> /etc/aliases
 
 # set permissions and make directories
 chmod u=rw,go=r /etc/opendkim.conf
-#mkdir /etc/opendkim
-#mkdir /etc/mail
 mkdir /etc/{opendkim,mail}
 chown -R opendkim:opendkim /etc/opendkim
 mkdir /var/log/dkim-filter
@@ -110,3 +109,5 @@ newaliases
 systemctl restart postfix
 systemctl restart dovecot
 systemctl restart opendkim
+
+sudo reboot
