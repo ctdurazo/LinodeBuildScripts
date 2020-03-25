@@ -99,7 +99,7 @@ sudo chmod a+w /var/log/mail*
 
 # create backup dir and crontabs
 mkdir /var/backup/
-( crontab -l ; echo "0 1 * * * /root/flush.sh" ) | crontab -
+( crontab -l ; echo "0 1 * * * /root/flush.sh" ) | crontab -e
 
 # create ssh keys
 ssh-keygen -f ~/.ssh/id_rsa -P ""
